@@ -30,23 +30,24 @@ def print_word_freq(file):
             master_list[word] = 1
         else:
             master_list[word] += 1
-
-
+    
+    list2 = [(k, v) for k, v in master_list.items()] 
+    def first_item(seq):
+        return seq[0]
+    
+    list2 = sorted(list2, key=first_item)
 
     def second_item(seq):
         return seq[1]
     
-    def first_item(seq):
-        return seq[0]
-
 
     def top_ten(quantities):
-        quantities = sorted(quantities.items(), key=second_item, reverse=True)[0:10]
+        quantities = sorted(quantities, key=second_item, reverse=True)[0:10]
+        return quantities
+        #for word, qty in quantities:
+            #print(word, qty)
         
-        for word, qty in quantities:
-                print(word, qty)
-        
-    print(top_ten(master_list))
+    print(top_ten(list2))
 
 
 
