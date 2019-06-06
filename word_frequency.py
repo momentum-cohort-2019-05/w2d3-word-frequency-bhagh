@@ -1,5 +1,4 @@
 import re
-from collections import Counter
 
 
 STOP_WORDS = [
@@ -17,26 +16,32 @@ def print_word_freq(file):
     querywords = clean_string.split()
     word_list = ""
 
+    #revmove all STOP_WORDS
     for word in querywords:
         if word not in STOP_WORDS:
             word_list += str(word)+" "
     
+    #create a split lit
     word_list = word_list.split() 
 
+    #create a dictionary
     master_list = {}
 
+    #fill dictionary with words and word count
     for word in word_list:
         if master_list.get(word) == None:
             master_list[word] = 1
         else:
             master_list[word] += 1
     
-    list2 = [(word, quantity) for word, quantity in master_list.items()] 
+    #create tuple from dictionary
+    tuple_list = [(word, quantity) for word, quantity in master_list.items()] 
     
     def first_item(seq):
         return seq[0]
     
-    list2 = sorted(list2, key=first_item)
+    #sort tuple alphabetically
+    tuple_list = sorted(tuple_list, key=first_item)
 
     def second_item(seq):
         return seq[1]
@@ -44,13 +49,13 @@ def print_word_freq(file):
     def top_ten(quantities):
         quantities = sorted(quantities, key=second_item, reverse=True)[0:10]
         return quantities
-        #for word, qty in quantities:
-            #print(word, qty)
-        
-    final_list = top_ten(list2)
+       
+    #create final top 10 list
+    final_list = top_ten(tuple_list)
 
+    #print out top 10 words with * indicators
     for word, qty in final_list:
-        print(word, qty)
+        print('{:>10}'.format(word), " | " , '{:<2}'.format(qty), '{:<1}'.format("*" * qty))
 
 
 if __name__ == "__main__":
